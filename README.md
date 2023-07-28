@@ -17,7 +17,7 @@
 ### Association
 
 - has_many   :items
-- belongs_to :order
+- has_many :order
 
 ## items テーブル
 
@@ -36,7 +36,7 @@
 ### Association
 
 - belongs_to :user
-- belongs_to :order
+- has_one :order
 
 ## deliveries テーブル
 
@@ -60,10 +60,9 @@
 | ------------------ | ---------- | ------------------------------ |
 | user               | references | null: false, foreign_key: true |
 | item               | references | null: false, foreign_key: true |
-| delivery           | references | null: false, foreign_key: true |
 
 ### Association
 
-- has_one    :user
-- has_one    :item
+- belongs_to    :user
+- belongs_to    :item
 - has_one    :delivery

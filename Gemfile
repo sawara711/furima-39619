@@ -63,7 +63,7 @@ group :development do
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
 
-  # 静的コード解析用にrubocop設定（別途設定yml実装済み）
+  # 静的コード解析用にrubocop実装（別途設定yml実装済み）
   gem 'rubocop', require: false
 end
 
@@ -74,5 +74,5 @@ group :test do
   gem "webdrivers"
 end
 
-# デバックツール設定
+# デバックツール実装
 gem 'pry-rails'

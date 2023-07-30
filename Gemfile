@@ -76,3 +76,6 @@ end
 
 # デバックツール実装
 gem 'pry-rails'
+
+# 認証機能実装
+gem 'devise'

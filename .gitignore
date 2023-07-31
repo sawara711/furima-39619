@@ -30,3 +30,6 @@
 # Ignore master key for decrypting credentials and more.
 /config/master.key
 .Ds_Store
+
+# Ignore the database schema file
+/db/schema.rb

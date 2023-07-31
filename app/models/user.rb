@@ -10,7 +10,7 @@ class User < ApplicationRecord
   error_message_kana = 'is invalid. Input full-width katakana characters'
   # set valid
   VALID_PASSWORD_REGEX = /\A(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]+\z/.freeze
-  VALID_FULLWIDTH_CHAR = /\A[\p{Han}ぁ-んァ-ヶー]+\z/.freeze
+  VALID_FULLWIDTH_CHAR = /\A[ぁ-んァ-ヶ一-龥々ー]+\z/.freeze
   VALID_FULLWIDTH_CHAR_KANA = /\A[ァ-ヶー]+\z/.freeze
   
   

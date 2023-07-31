@@ -9,9 +9,10 @@ class User < ApplicationRecord
   error_message_fullwidth = 'is invalid. Input full-width characters'
   error_message_kana = 'is invalid. Input full-width katakana characters'
   # set valid
-  VALID_PASSWORD_REGEX = /\A(?=.*?[A-Za-z])(?=.*?\d)[A-Za-z\d]{6,}\z/.freeze
-  VALID_FULLWIDTH_CHAR = /\A[一-龯ぁ-んァ-ンー]+\z/.freeze
-  VALID_FULLWIDTH_CHAR_KANA = /\A[ァ-ンー]+\z/.freeze
+  VALID_PASSWORD_REGEX = /\A(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]+\z/.freeze
+  VALID_FULLWIDTH_CHAR = /\A[\p{Han}ぁ-んァ-ヶー]+\z/.freeze
+  VALID_FULLWIDTH_CHAR_KANA = /\A[ァ-ヶー]+\z/.freeze
+  
   
   # 仮想カラムpasswordが英数字6文字以上となることを検証
   validates :password, format: { with: VALID_PASSWORD_REGEX, message: error_message_pass }

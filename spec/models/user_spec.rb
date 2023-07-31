@@ -57,29 +57,53 @@ RSpec.describe User, type: :model do
         @user.valid?
         expect(@user.errors.full_messages).to include("Password is invalid. Include both letters and numbers")
       end
+      it 'passwordが全角文字を含むと登録できない' do
+        @user.password = 'あa123456'
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Password is invalid. Include both letters and numbers")
+      end
       it 'passwordとpassword_confirmationが不一致では登録できない' do
         @user.password = '123456'
         @user.password_confirmation = '1234567'
         @user.valid?
         expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
       end
-      # 一括りで設定をしているため片方のみ確認する
-      it 'surnameまたはgivennameが空では登録できない' do
+      it 'surnameが空では登録できない' do
         @user.surname = ''
         @user.valid?
         expect(@user.errors.full_messages).to include("Surname can't be blank")
       end
-      it 'surnameまたはgivennameが半角文字では登録できない' do
+      it 'givennameが空では登録できない' do
+        @user.givenname = ''
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Givenname can't be blank")
+      end
+      it 'surnameが半角文字では登録できない' do
+        @user.surname = 'ciao'
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Surname is invalid. Input full-width characters")
+      end
+      it 'givennameが半角文字では登録できない' do
         @user.givenname = 'ciao'
         @user.valid?
         expect(@user.errors.full_messages).to include("Givenname is invalid. Input full-width characters")
       end
-      it 'surname_kanaまたはgivenname_kanaが空では登録できない' do
+      it 'surname_kanaが空では登録できない' do
         @user.surname_kana = ''
         @user.valid?
         expect(@user.errors.full_messages).to include("Surname kana can't be blank")
       end
-      it 'surname_kanaまたはgivenname_kanaがカナ文字以外では登録できない' do
+      it 'givenname_kanaが空では登録できない' do
+        @user.givenname_kana = ''
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Givenname kana can't be blank")
+      end
+      it 'surname_kanaがカナ文字以外では登録できない' do
+        @user.surname_kana = 'おちゃ'
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Surname kana is invalid. Input full-width katakana characters")
+      end
+      it 'givenname_kanaがカナ文字以外では登録できない' do
         @user.givenname_kana = 'おちゃ'
         @user.valid?
         expect(@user.errors.full_messages).to include("Givenname kana is invalid. Input full-width katakana characters")

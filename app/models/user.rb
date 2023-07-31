@@ -4,7 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  # set errorm message
+  # set error message
   error_message_pass = 'is invalid. Include both letters and numbers'
   error_message_fullwidth = 'is invalid. Input full-width characters'
   error_message_kana = 'is invalid. Input full-width katakana characters'
@@ -13,17 +13,17 @@ class User < ApplicationRecord
   VALID_FULLWIDTH_CHAR = /\A[一-龯ぁ-んァ-ンー]+\z/.freeze
   VALID_FULLWIDTH_CHAR_KANA = /\A[ァ-ンー]+\z/.freeze
   
-  # 仮想カラムpasswordへ英数字6文字以上必須のバリデーションを設定
+  # 仮想カラムpasswordが英数字6文字以上となることを検証
   validates :password, format: { with: VALID_PASSWORD_REGEX, message: error_message_pass}
 
-  # 属性が空でな全角文字のみであることを検証
+  # 属性が空ではなく全角文字のみ(ー含む)となることを検証
   with_options presence: true, 
                format: { with: VALID_FULLWIDTH_CHAR, message: error_message_fullwidth} do
     validates :surname
     validates :givenname
   end
 
-  # 属性が空でなカナ文字のみであることを検証
+  # 属性が空ではなくカナ文字のみ(ー含む)となることを検証
   with_options presence: true, 
                format: { with: VALID_FULLWIDTH_CHAR_KANA, message: error_message_kana} do
     validates :surname_kana

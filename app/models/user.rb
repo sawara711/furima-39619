@@ -14,18 +14,18 @@ class User < ApplicationRecord
   VALID_FULLWIDTH_CHAR_KANA = /\A[ァ-ンー]+\z/.freeze
   
   # 仮想カラムpasswordが英数字6文字以上となることを検証
-  validates :password, format: { with: VALID_PASSWORD_REGEX, message: error_message_pass}
+  validates :password, format: { with: VALID_PASSWORD_REGEX, message: error_message_pass }
 
   # 属性が空ではなく全角文字のみ(ー含む)となることを検証
-  with_options presence: true, 
-               format: { with: VALID_FULLWIDTH_CHAR, message: error_message_fullwidth} do
+  with_options presence: true,
+               format: { with: VALID_FULLWIDTH_CHAR, message: error_message_fullwidth } do
     validates :surname
     validates :givenname
   end
 
   # 属性が空ではなくカナ文字のみ(ー含む)となることを検証
-  with_options presence: true, 
-               format: { with: VALID_FULLWIDTH_CHAR_KANA, message: error_message_kana} do
+  with_options presence: true,
+               format: { with: VALID_FULLWIDTH_CHAR_KANA, message: error_message_kana } do
     validates :surname_kana
     validates :givenname_kana
   end
@@ -33,6 +33,6 @@ class User < ApplicationRecord
   # 属性が空でないことを検証
   with_options presence: true do
     validates :nickname
-    validates :birthday  
+    validates :birthday
   end
 end

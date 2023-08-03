@@ -18,5 +18,8 @@ module Furima39619
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+
+    # モデルにサブフォルダを読み込ませるための設定
+    config.autoload_paths += %W(#{config.root}/app/models/activehash)
   end
 end

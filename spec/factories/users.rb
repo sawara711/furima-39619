@@ -1,5 +1,4 @@
 FactoryBot.define do
-
   factory :user do
     nickname              {Faker::Name.initials(number: 3)}
     email                 {Faker::Internet.email}
@@ -13,5 +12,3 @@ FactoryBot.define do
     birthday              {Faker::Date.in_date_period(year: 2000)}
   end
 end
-
-

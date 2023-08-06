@@ -1,4 +1,7 @@
 class User < ApplicationRecord
+  # association
+  has_many :items
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -12,8 +15,7 @@ class User < ApplicationRecord
   VALID_PASSWORD_REGEX = /\A(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]+\z/.freeze
   VALID_FULLWIDTH_CHAR = /\A[ぁ-んァ-ヶ一-龥々ー]+\z/.freeze
   VALID_FULLWIDTH_CHAR_KANA = /\A[ァ-ヶー]+\z/.freeze
-  
-  
+
   # 仮想カラムpasswordが英数字6文字以上となることを検証
   validates :password, format: { with: VALID_PASSWORD_REGEX, message: error_message_pass }
 

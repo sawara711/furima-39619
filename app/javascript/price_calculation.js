@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const itemPrice = Number(inputPrice.value);
     const taxPrice = itemPrice * tax;
     const profit = itemPrice - taxPrice;
-    addTaxPrice.innerHTML = Math.floor(taxPrice);
-    profitPrice.innerHTML = Math.floor(profit);
+    addTaxPrice.innerHTML = Math.floor(taxPrice).toLocaleString();
+    profitPrice.innerHTML = Math.floor(profit).toLocaleString();
   })
 })

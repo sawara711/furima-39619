@@ -1,5 +1,6 @@
 class ItemsController < ApplicationController
   before_action :move_check, only: [ :new ]
+  before_action :edit_check, only: [ :edit ]
   
   def index
     @items = Item.all.order("created_at DESC")
@@ -22,6 +23,19 @@ class ItemsController < ApplicationController
     end
   end
 
+  def edit
+    @item = Item.find(params[:id])
+  end
+
+  def update
+    @item = Item.find(params[:id])
+      if @item.update(newitem_params)
+        redirect_to action: :show
+      else
+        render :edit, status: :unprocessable_entity
+      end
+  end
+
   private
   def newitem_params
     params.require(:item).permit(
@@ -35,4 +49,11 @@ class ItemsController < ApplicationController
     end
   end
   
+  def edit_check
+    if !user_signed_in?
+      redirect_to new_user_session_path
+    elsif user_signed_in? && Item.find(params[:id]).user_id != current_user.id
+      redirect_to root_path
+    end
+  end
 end

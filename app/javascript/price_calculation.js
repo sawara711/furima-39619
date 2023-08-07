@@ -12,4 +12,11 @@ document.addEventListener('DOMContentLoaded', function() {
     addTaxPrice.innerHTML = Math.floor(taxPrice).toLocaleString();
     profitPrice.innerHTML = Math.floor(profit).toLocaleString();
   })
+
+  // enterキーによるsubmitを禁止
+  inputPrice.addEventListener('keydown', (event) => {
+    if  (event.key === 'Enter') {
+      event.preventDefault();
+    }
+  });
 })

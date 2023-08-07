@@ -1,12 +1,13 @@
 class ItemsController < ApplicationController
+  before_action :find_item, only: [ :show, :edit, :update ]
   before_action :move_check, only: [ :new ]
+  before_action :edit_check, only: [ :edit ]
   
   def index
     @items = Item.all.order("created_at DESC")
   end
 
   def show
-    @item = Item.find(params[:id])
   end
   
   def new
@@ -22,11 +23,26 @@ class ItemsController < ApplicationController
     end
   end
 
+  def edit
+  end
+
+  def update
+    if @item.update(newitem_params)
+      redirect_to action: :show
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
   private
   def newitem_params
     params.require(:item).permit(
       :image, :title, :describe, :category_id, :condition_id, :price,
       :shipping_charge_id, :prefecture_id, :shipping_date_id).merge(user_id: current_user.id)
+  end
+
+  def find_item
+    @item = Item.find(params[:id])
   end
 
   def move_check
@@ -35,4 +51,11 @@ class ItemsController < ApplicationController
     end
   end
   
+  def edit_check
+    if !user_signed_in?
+      redirect_to new_user_session_path
+    elsif user_signed_in? && Item.find(params[:id]).user_id != current_user.id
+      redirect_to root_path
+    end
+  end
 end

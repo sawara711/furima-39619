@@ -83,3 +83,10 @@ gem 'pry-rails'
 
 # 認証機能実装
 gem 'devise'
+
+# ActiveHash実装
+gem 'active_hash'
+
+# ActiveStorage関連機能実装
+gem 'mini_magick'
+gem 'image_processing', '~> 1.2'

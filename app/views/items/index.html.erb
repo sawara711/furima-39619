@@ -127,7 +127,7 @@
       新規投稿商品
     </div>
     <ul class='item-lists'>
-      <% if @items != nil %>
+      <% if @items.present? %>
         <% @items.each do |item| %>
           <li class='list'>
             <%= link_to "#" do %>
@@ -159,7 +159,6 @@
             <% end %>
           </li>
         <% end %>
-
       <% else %>
         <li class='list'>
           <%= link_to '#' do %>

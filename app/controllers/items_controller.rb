@@ -1,7 +1,7 @@
 class ItemsController < ApplicationController
   before_action :find_item, only: [ :show, :edit, :update ]
-  before_action :move_check, only: [ :new ]
-  before_action :edit_check, only: [ :edit ]
+  before_action :move_to_index, only: [ :new, :edit, :destroy ]
+  before_action :signed_in_check, only: [ :edit, :destroy ]
   
   def index
     @items = Item.all.order("created_at DESC")
@@ -34,6 +34,12 @@ class ItemsController < ApplicationController
     end
   end
 
+  def destroy
+    item = Item.find(params[:id])
+    item.destroy
+    redirect_to root_path
+  end
+
   private
   def newitem_params
     params.require(:item).permit(
@@ -45,16 +51,14 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id])
   end
 
-  def move_check
+  def move_to_index
     if !user_signed_in?
       redirect_to new_user_session_path
     end
   end
   
-  def edit_check
-    if !user_signed_in?
-      redirect_to new_user_session_path
-    elsif user_signed_in? && Item.find(params[:id]).user_id != current_user.id
+  def signed_in_check
+    if user_signed_in? && Item.find(params[:id]).user_id != current_user.id
       redirect_to root_path
     end
   end

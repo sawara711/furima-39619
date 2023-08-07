@@ -84,7 +84,7 @@ RSpec.describe Item, type: :model do
           @item.valid?
           expect(@item.errors.full_messages).to include("Price is out of setting range")
         end
-        it 'ユーザーが紐づいていいなければ登録できない' do
+        it 'ユーザーが紐づいていなければ登録できない' do
           @item.user = nil
           @item.valid?
           expect(@item.errors.full_messages).to include("User must exist")

@@ -90,3 +90,9 @@ gem 'active_hash'
 # ActiveStorage関連機能導入
 gem 'mini_magick'
 gem 'image_processing', '~> 1.2'
+
+# payjp関連機能導入
+gem 'payjp'
+
+# JavaScript連携機能導入
+gem 'gon'

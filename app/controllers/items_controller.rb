@@ -1,10 +1,10 @@
 class ItemsController < ApplicationController
   before_action :find_item, only: [ :show, :edit, :update ]
   before_action :authenticate_user!, only: [ :new, :edit, :destroy ]
-  before_action :signed_in_check, only: [ :edit, :destroy ]
+  before_action :move_to_root, only: [ :edit, :destroy ]
   
   def index
-    @items = Item.all.order("created_at DESC")
+    @items = Item.includes(:order).all.order("created_at DESC")
   end
 
   def show
@@ -51,8 +51,10 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id])
   end
 
-  def signed_in_check
+  def move_to_root
     if user_signed_in? && Item.find(params[:id]).user_id != current_user.id
+      redirect_to root_path
+    elsif Order.find_by(item_id: params[:id]).present?
       redirect_to root_path
     end
   end

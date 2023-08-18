@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
   before_action :find_item, only: [ :show, :edit, :update ]
-  before_action :move_to_index, only: [ :new, :edit, :destroy ]
+  before_action :authenticate_user!, only: [ :new, :edit, :destroy ]
   before_action :signed_in_check, only: [ :edit, :destroy ]
   
   def index
@@ -51,12 +51,6 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id])
   end
 
-  def move_to_index
-    if !user_signed_in?
-      redirect_to new_user_session_path
-    end
-  end
-  
   def signed_in_check
     if user_signed_in? && Item.find(params[:id]).user_id != current_user.id
       redirect_to root_path

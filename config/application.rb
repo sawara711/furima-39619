@@ -21,5 +21,8 @@ module Furima39619
 
     # モデルにサブフォルダを読み込ませるための設定
     config.autoload_paths += %W(#{config.root}/app/models/activehash)
+
+    #rspecテスト時のwarning解消のため設定を追加
+    config.active_storage.variant_processor = :mini_magick
   end
 end

@@ -13,7 +13,7 @@ class OrderDelivery
   error_message_long = "is too long (message for long length)"
 
   # set valid
-  VALID_POSTCODE = /\A[0-9]{3}-?[0-9]{4}\z/.freeze
+  VALID_POSTCODE = /\A[0-9]{3}[-][0-9]{4}\z/.freeze
 
   # 属性が空でないことを検証
   with_options presence: true do
@@ -28,9 +28,10 @@ class OrderDelivery
     validates :phonenumber,
       numericality: { only_integer: true, message: error_message_number },
       length: { minimum: 10, maximum: 11, too_short: error_message_short }
-  end
-  # 属性が1以外であることを検証
-  validates :prefecture_id, exclusion: { in: ['1'], message: error_message_blank }
+    end
+  # 属性が2~48であることを検証
+  validates :prefecture_id, inclusion: { in: 2..48, message: error_message_blank }
+
 
   def save
     order = Order.create(item_id: item_id, user_id: user_id, token: token)

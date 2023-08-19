@@ -1,7 +1,6 @@
 const pay = () => {
   const publicKey = gon.public_key
   const payjp = Payjp(publicKey)
-
   // form生成
   const elements = payjp.elements();
   const numberElement = elements.create('cardNumber');
@@ -22,7 +21,6 @@ const pay = () => {
         const tokenObj = `<input value=${token} name='token' type="hidden">`;
         renderDom.insertAdjacentHTML("beforeend", tokenObj);
       }
-
       numberElement.clear();
       expiryElement.clear();
       cvcElement.clear();

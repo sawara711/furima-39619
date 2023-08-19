@@ -9,6 +9,7 @@ class OrdersController < ApplicationController
   end
 
   def create
+    gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
     @order = OrderDelivery.new(order_params)
     if @order.valid?
       ActiveRecord::Base.transaction do

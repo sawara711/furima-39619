@@ -29,9 +29,8 @@ class OrderDelivery
       numericality: { only_integer: true, message: error_message_number },
       length: { minimum: 10, maximum: 11, too_short: error_message_short }
     end
-  # 属性が2~48であることを検証
-  validates :prefecture_id, inclusion: { in: 2..48, message: error_message_blank }
-
+  # 属性が1以外であることを検証
+  validates :prefecture_id, exclusion: { in: [1], message: error_message_blank }
 
   def save
     order = Order.create(item_id: item_id, user_id: user_id, token: token)

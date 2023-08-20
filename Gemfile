@@ -51,6 +51,10 @@ gem "bootsnap", require: false
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
+  gem 'rspec-rails', '~> 4.0.0'
+  gem 'factory_bot_rails'
+  gem 'faker'
+  gem 'faker-japanese'
 end
 
 group :development do
@@ -62,6 +66,8 @@ group :development do
 
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
+
+  # 静的コード解析用にrubocop導入（別途設定yml実装済み）
   gem 'rubocop', require: false
 end
 
@@ -79,3 +85,16 @@ end
 
 # S3利用設定を導入
 gem "aws-sdk-s3", require: false
+
+# デバックツール導入
+gem 'pry-rails'
+
+# 認証機能導入
+gem 'devise'
+
+# ActiveHash導入
+gem 'active_hash'
+
+# ActiveStorage関連機能導入
+gem 'mini_magick'
+gem 'image_processing', '~> 1.2'

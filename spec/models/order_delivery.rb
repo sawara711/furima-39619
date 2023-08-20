@@ -9,7 +9,11 @@ RSpec.describe OrderDelivery, type: :model do
   describe '商品購入' do
     context '購入できる場合' do
       # 正常系
-      it '配送先情報とtokenがあれば保存ができること' do
+      it '配送先情報(建物名含む)とtokenがあれば保存ができること' do
+        expect(@order).to be_valid
+      end
+      it '配送先情報(建物名が空)とtokenがあれば保存ができること' do
+        @order.building = ''
         expect(@order).to be_valid
       end
     end
@@ -74,7 +78,12 @@ RSpec.describe OrderDelivery, type: :model do
       it 'phonenumberが9文字以下では登録できない' do
         @order.phonenumber = 123
         @order.valid?
-        expect(@order.errors.full_messages).to include("Phonenumber is too short (message for short length)")
+        expect(@order.errors.full_messages).to include("Phonenumber is too short")
+      end
+      it 'phonenumberが12文字以上では登録できない' do
+        @order.phonenumber = 123456789012
+        @order.valid?
+        expect(@order.errors.full_messages).to include("Phonenumber is too long")
       end
       it '発送元の地域が「---」では登録できない' do
         @order.prefecture_id = 1

@@ -72,6 +72,10 @@ group :test do
   gem "webdrivers"
 end
 
+# unicorn導入
 group :production do
   gem 'unicorn', '6.1.0'
 end
+
+# S3利用設定を導入
+gem "aws-sdk-s3", require: false

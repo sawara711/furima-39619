@@ -1,6 +1,7 @@
 class Item < ApplicationRecord
   # association
   belongs_to :user
+  has_one :order, dependent: :destroy
   # ActiveStorage association
   has_one_attached :image
 

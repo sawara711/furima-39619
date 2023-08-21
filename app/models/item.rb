@@ -30,8 +30,8 @@ class Item < ApplicationRecord
       inclusion: { in: 300..9_999_999, message: error_message_range }
   end
 
-  # 属性が1以外であることを検証
-  with_options exclusion: { in: [1], message: error_message_blank } do
+  # 属性が空以外且つ1以外であることを検証
+  with_options presence: true, exclusion: { in: [1], message: error_message_blank } do
     validates :category_id
     validates :condition_id
     validates :shipping_charge_id

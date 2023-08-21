@@ -22,6 +22,8 @@ class OrderDelivery
     validates :user_id
     # 郵便番号形式(xxx-xxxx)の数字となることを検証
     validates :postcode, format: { with: VALID_POSTCODE, message: error_message_postcode }
+    # 属性が1以外であることを検証
+    validates :prefecture_id, exclusion: { in: [1], message: error_message_blank }
     validates :city
     validates :address
     # 桁数が指定範囲内且つ、半角数字のみであることを検証
@@ -29,8 +31,6 @@ class OrderDelivery
       numericality: { only_integer: true, message: error_message_number },
       length: { minimum: 10, maximum: 11, too_short: error_message_short, too_long: error_message_long }
     end
-  # 属性が1以外であることを検証
-  validates :prefecture_id, exclusion: { in: [1], message: error_message_blank }
 
   def save
     order = Order.create(item_id: item_id, user_id: user_id)

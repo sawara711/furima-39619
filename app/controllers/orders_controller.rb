@@ -24,9 +24,11 @@ class OrdersController < ApplicationController
 
   private
   def order_params
+    prefecture_id = params[:order_delivery][:prefecture_id].to_i
     params.require(:order_delivery).permit(
-      :postcode, :prefecture_id, :city, :address, :building, :phonenumber).merge(
-      user_id: current_user.id, item_id: params[:item_id], token: params[:token])
+      #:postcode, :prefecture_id, :city, :address, :building, :phonenumber).merge(
+      :postcode, :city, :address, :building, :phonenumber).merge(
+      user_id: current_user.id, item_id: params[:item_id], token: params[:token], prefecture_id: prefecture_id)
   end
 
   def find_item

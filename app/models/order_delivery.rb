@@ -1,5 +1,4 @@
 class OrderDelivery
-  # ActiveRecordを継承
   include ActiveModel::Model
   attr_accessor :item_id, :user_id, :postcode, :prefecture_id,
                 :city, :address, :building, :phonenumber, :order_id,
